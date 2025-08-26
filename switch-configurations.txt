@@ -1,0 +1,296 @@
+! Switch e IP verme
+en
+conf t
+interface vlan 1 ! varsayılan vlan1dir
+no sh
+ip address 10.6.2.254 255.255.255.0
+exit
+ip default-g 10.6.2.1
+!
+do wr mem
+!
+! configure terminal modunda
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+! Switch e IP verme
+en
+conf t
+hostname Mamak
+interface vlan 1 ! varsayılan vlan1dir
+no sh
+ip address 10.6.1.254 255.255.255.0
+exit
+ip default-g 10.6.1.1
+!
+do wr mem
+!
+! configure terminal modunda
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+! Switch e IP verme
+en
+conf t
+hostname Mucur
+interface vlan 1
+no sh
+ip address 10.40.1.254 255.255.255.0
+exit
+ip default-g 10.40.1.1
+!
+do wr mem
+!
+! configure terminal modunda
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+! Switch e IP verme
+en
+conf t
+hostname Kaman
+interface vlan 1
+no sh
+ip address 10.40.2.254 255.255.255.0
+exit
+ip default-g 10.40.2.1
+!
+do wr mem
+!
+! configure terminal modunda
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+! Switch e IP verme
+en
+conf t
+hostname Alpaslan
+interface vlan 1
+no sh
+ip address 10.38.1.254 255.255.255.0
+exit
+ip default-g 10.38.1.1
+!
+do wr mem
+!
+! configure terminal modunda
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+! Switch e IP verme
+en
+conf t
+hostname Kaman
+interface vlan 1
+no sh
+ip address 10.38.2.254 255.255.255.0
+exit
+ip default-g 10.38.2.1
+!
+do wr mem
+!
+! configure terminal modunda
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+! Switch e IP verme
+en
+conf t
+hostname Tuzluca
+interface vlan 1
+no sh
+ip address 10.76.2.254 255.255.255.0
+exit
+ip default-g 10.76.2.1
+!
+do wr mem
+!
+! configure terminal modunda
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+! Switch e IP verme
+en
+conf t
+hostname Aralik
+interface vlan 1
+no sh
+ip address 10.76.1.254 255.255.255.0
+exit
+ip default-g 10.76.1.1
+!
+do wr mem
+!
+! configure terminal modunda
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+en
+ping <TFTP_Server_IP_Address>
+copy running-config tftp
+10.6.2.2
+Aralik_SW_1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

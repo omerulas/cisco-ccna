@@ -1,0 +1,130 @@
+en
+conf t
+no sh
+hostname Ankara
+interface gi 0/1
+no sh
+ip address 10.6.1.1 255.255.255.0
+desc Cankaya
+exit
+int gi 0/3/0
+no sh
+ip add 1.1.1.1 255.255.255.252
+desc Ankara to Istanbul
+exit
+do wr mem
+!
+! Diger iller
+ip route 1.1.1.4 255.255.255.252 1.1.1.2
+ip route 1.1.1.8 255.255.255.252 1.1.1.6
+ip route 10.40.1.0 255.255.255.0 1.1.1.10
+do wr mem
+!
+******************************************
+en
+conf t
+no sh
+hostname Istanbul
+int gi 0/3/0
+no sh
+ip add 1.1.1.2 255.255.255.252
+desc to Ankara
+exit
+int gi 0/2/0
+no sh
+ip add 1.1.1.5 255.255.255.252
+desc to Corum
+exit
+do wr mem
+!
+! Diger iller
+ip route 10.6.1.0 255.255.255.0 1.1.1.1
+ip route 1.1.1.8 255.255.255.252 1.1.1.6
+ip route 10.40.1.0 255.255.255.0 1.1.1.10
+do wr mem
+!
+******************************************
+en
+conf t
+no sh
+hostname Corum
+int gi 0/2/0
+no sh
+ip add 1.1.1.6 255.255.255.252
+desc to Istanbul
+exit
+int gi 0/3/0
+no sh
+ip add 1.1.1.9 255.255.255.252
+desc to Kirsehir
+exit
+do wr mem
+!
+! Diger iller
+ip route 10.6.1.0 255.255.255.0 1.1.1.1
+ip route 1.1.1.0 255.255.255.252 1.1.1.2
+ip route 10.40.1.0 255.255.255.0 1.1.1.10
+do wr mem
+!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
