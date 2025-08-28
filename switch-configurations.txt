@@ -1,4 +1,4 @@
-! Switch e IP verme
+**********! Switch e IP verme**********
 en
 conf t
 interface vlan 1 ! varsayılan vlan1dir
@@ -27,8 +27,8 @@ ip ssh authentication-retries 4
 ip ssh time-out 30
 do wr mem
 !
-***************************************
-! Switch e IP verme
+
+**********! Switch e IP verme**********
 en
 conf t
 hostname Mamak
@@ -58,8 +58,8 @@ ip ssh authentication-retries 4
 ip ssh time-out 30
 do wr mem
 !
-***************************************
-! Switch e IP verme
+
+**********! Switch e IP verme**********
 en
 conf t
 hostname Mucur
@@ -89,8 +89,8 @@ ip ssh authentication-retries 4
 ip ssh time-out 30
 do wr mem
 !
-***************************************
-! Switch e IP verme
+
+**********! Switch e IP verme**********
 en
 conf t
 hostname Kaman
@@ -120,8 +120,8 @@ ip ssh authentication-retries 4
 ip ssh time-out 30
 do wr mem
 !
-***************************************
-! Switch e IP verme
+
+**********! Switch e IP verme**********
 en
 conf t
 hostname Alpaslan
@@ -151,8 +151,8 @@ ip ssh authentication-retries 4
 ip ssh time-out 30
 do wr mem
 !
-***************************************
-! Switch e IP verme
+
+**********! Switch e IP verme**********
 en
 conf t
 hostname Kaman
@@ -182,8 +182,8 @@ ip ssh authentication-retries 4
 ip ssh time-out 30
 do wr mem
 !
-***************************************
-! Switch e IP verme
+
+**********! Switch e IP verme**********
 en
 conf t
 hostname Tuzluca
@@ -213,8 +213,8 @@ ip ssh authentication-retries 4
 ip ssh time-out 30
 do wr mem
 !
-***************************************
-! Switch e IP verme
+
+**********! Switch e IP verme**********
 en
 conf t
 hostname Aralik
@@ -244,20 +244,26 @@ ip ssh authentication-retries 4
 ip ssh time-out 30
 do wr mem
 !
-***************************************
+
+*********! Config Yedegi alma**********
 en
 ping <TFTP_Server_IP_Address>
 copy running-config tftp
 10.6.2.2
 Aralik_SW_1
 
+*******! Firmware Yedegi alma**********
+en
+sh ver
+show flas
+copy flash
+! Firmwarelerde ad değişmez.
 
-
-
-
-
-
-
+*******! Yedekleri geri getirme********
+en
+copy tftp: running-config
+10.6.2.2
+incesu-config
 
 
 
