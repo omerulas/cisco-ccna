@@ -1,0 +1,15 @@
+		Dynamic Routing
+Distance Vector		Link State	Hybrid
+(RIP, IRGRP)		(OSPF, IS-IS)	(EIGRP)
+(Küçük-RIP)		(Büyük-OSPF)	(Sadece Cisco)
+
+Router# router rip
+Router# ver 2
+! Classless olması icin:
+Router# no auto-summary
+! Routerin dis bacagi
+Router# net 1.1.1.0
+Router# net 10.6.1.0
+Router# net 10.6.2.0
+Router# pass gi 0/1
+Router# pass gi 0/2

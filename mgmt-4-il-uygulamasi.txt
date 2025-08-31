@@ -1,0 +1,349 @@
+en
+conf t
+hostname Istanbul
+int gi 0/1
+no sh
+desc to Fatih
+ip address 10.34.20.1 255.255.255.0
+exit
+int gi 0/2
+no sh
+ip address 10.34.10.1 255.255.255.0
+desc to Sisli
+exit
+int gi 0/3/0
+no sh
+ip address 172.27.0.1 255.255.255.252
+desc Istanbul to Eskisehir
+exit
+ip route 172.27.0.4 255.255.255.252 172.27.0.2
+ip route 10.26.10.0 255.255.255.0 172.27.0.2
+ip route 10.26.20.0 255.255.255.0 172.27.0.2
+ip route 10.6.10.0 255.255.255.0 172.27.0.6
+ip route 10.6.20.0 255.255.255.0 172.27.0.6
+ip route 10.6.30.0 255.255.255.0 172.27.0.6
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+hostname Eskisehir
+int gi 0/1
+no sh
+desc to Odunpazarı
+ip address 10.26.10.10 255.255.255.0
+exit
+int gi 0/2
+no sh
+ip address 10.26.20.1 255.255.255.0
+desc to Inonu
+exit
+int gi 0/2/0
+no sh
+ip address 172.27.0.5 255.255.255.252
+desc to Ankara
+exit
+int gi 0/3/0
+no sh
+ip address 172.27.0.2 255.255.255.252
+desc to Istanbul
+exit
+ip route 10.34.10.0 255.255.255.0 172.27.0.1
+ip route 10.34.20.0 255.255.255.0 172.27.0.1
+ip route 10.6.10.0 255.255.255.0 172.27.0.6
+ip route 10.6.20.0 255.255.255.0 172.27.0.6
+ip route 10.6.30.0 255.255.255.0 172.27.0.6
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+hostname Ankara
+int gi 0/0
+no sh
+ip address 10.3.10.1 255.255.255.0
+desc to Yenimahalle
+exit
+int gi 0/1
+no sh
+desc to Sincan
+ip address 10.6.20.1 255.255.255.0
+exit
+int gi 0/2
+no sh
+ip address 10.6.30.1 255.255.255.0
+desc to Cankaya
+exit
+int gi 0/3/0
+ip address 172.27.0.6 255.255.255.252
+desc to Eskisehir
+exit
+ip route 172.27.0.0 255.255.255.252 172.27.0.5
+ip route 10.26.10.0 255.255.255.0 172.27.0.5
+ip route 10.26.20.0 255.255.255.0 172.27.0.5
+ip route 10.34.10.0 255.255.255.0 172.27.0.1
+ip route 10.34.20.0 255.255.255.0 172.27.0.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+host Fatih
+interface vlan 1
+no sh
+ip address 10.34.20.253 255.255.255.0
+desc MGMT
+ip default-g 10.34.20.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+host Sisli
+interface vlan 1
+no sh
+ip address 10.34.20.254 255.255.255.0
+desc MGMT
+ip default-g 10.34.10.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+host Odunpazarı
+interface vlan 1
+no sh
+ip address 10.26.10.253 255.255.255.0
+desc MGMT
+ip default-g 10.26.10.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+host Inonu
+interface vlan 1
+no sh
+ip address 10.26.20.254 255.255.255.0
+desc MGMT
+ip default-g 10.26.20.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+host Inonu
+interface vlan 1
+no sh
+ip address 10.26.20.254 255.255.255.0
+desc MGMT
+ip default-g 10.26.20.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+host Yenimahalle
+interface vlan 1
+no sh
+ip address 10.6.10.252 255.255.255.0
+desc MGMT
+ip default-g 10.6.10.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+host Sincan
+interface vlan 1
+no sh
+ip address 10.6.20.253 255.255.255.0
+desc MGMT
+ip default-g 10.6.20.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************
+en
+conf t
+host Cankaya
+interface vlan 1
+no sh
+ip address 10.6.30.254 255.255.255.0
+desc MGMT
+ip default-g 10.6.30.1
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+! Kaç kişi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!

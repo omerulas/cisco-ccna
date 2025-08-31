@@ -1,0 +1,115 @@
+en
+conf t
+hostname Ankara
+int gi 0/1
+no sh
+ip address 10.6.1.1 255.255.255.0
+desc to Mamak
+exit
+int gi 0/2
+no sh
+ip address 10.6.2.1 255.255.255.0
+desc to Cankaya
+exit
+int gi 0/3/0
+no sh
+ip address 1.1.1.6 255.255.255.0
+desc to MPLS
+exit
+router eigrp 100
+no auto-summary
+net 1.1.1.0
+net 10.6.1.0
+net 10.6.2.0
+pass gi 0/1
+pass gi 0/2
+exit
+do wr mem
+!
+
+en
+conf t
+hostname Kayseri
+int gi 0/1
+no sh
+ip address 10.38.1.1 255.255.255.0
+desc to Incesu
+exit
+int gi 0/2
+no sh
+ip address 10.38.2.1 255.255.255.0
+desc to Develi
+exit
+int gi 0/3/0
+no sh
+ip address 1.1.1.38 255.255.255.0
+desc to MPLS
+exit
+router eigrp 100
+no auto-summary
+net 1.1.1.0
+net 10.38.1.0
+net 10.38.2.0
+pass gi 0/1
+pass gi 0/2
+exit
+do wr mem
+!
+
+en
+conf t
+hostname Kirsehir
+int gi 0/1
+no sh
+ip address 10.40.1.1 255.255.255.0
+desc to Mucur
+exit
+int gi 0/2
+no sh
+ip address 10.40.2.1 255.255.255.0
+desc to Kaman
+exit
+int gi 0/3/0
+no sh
+ip address 1.1.1.40 255.255.255.0
+desc to MPLS
+exit
+router eigrp 100
+no auto-summary
+net 1.1.1.0
+net 10.40.1.0
+net 10.40.2.0
+pass gi 0/1
+pass gi 0/2
+exit
+do wr mem
+!
+
+en
+conf t
+hostname Igdir
+int gi 0/1
+no sh
+ip address 10.76.1.1 255.255.255.0
+desc to Aralik
+exit
+int gi 0/2
+no sh
+ip address 10.76.2.1 255.255.255.0
+desc to Tuzluca
+exit
+int gi 0/3/0
+no sh
+ip address 1.1.1.76 255.255.255.0
+desc to MPLS
+exit
+router eigrp 100
+no auto-summary
+net 1.1.1.0
+net 10.76.1.0
+net 10.76.2.0
+pass gi 0/1
+pass gi 0/2
+exit
+do wr mem
+!

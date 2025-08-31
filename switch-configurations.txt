@@ -251,24 +251,17 @@ ping <TFTP_Server_IP_Address>
 copy running-config tftp
 10.6.2.2
 Aralik_SW_1
-
+*******! Yedekleri geri getirme********
+en
+copy tftp: running-config
+10.6.2.2
+incesu-config
 *******! Firmware Yedegi alma**********
 en
 sh ver
 show flas
 copy flash
 ! Firmwarelerde ad değişmez.
-
-*******! Yedekleri geri getirme********
-en
-copy tftp: running-config
-10.6.2.2
-incesu-config
-
-
-
-
-
 
 
 

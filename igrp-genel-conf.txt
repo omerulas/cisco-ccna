@@ -1,0 +1,24 @@
+IGRP / EIGRP
+
+Administrative Distance deger 120
+
+Örnek AD Değerleri (Cisco Standartları)
+
+Directly Connected (doğrudan bağlı) → 0 (en güvenilir, kabloyla bağlısın)
+
+Static Route → 1
+EIGRP → 90
+OSPF → 110
+RIP → 120
+External EIGRP → 170
+Unknown → 255 (kullanılamaz)
+
+Router# router eigrp 100 ! 0-100 degeri
+Router# no auto-summary ! Classless
+Router# net 1.1.1.0
+Router# net 10.40.1.0
+Router# net 10.40.2.0
+Router# pass gi 0/1
+Router# pass gi 0/2
+Router# exit
+

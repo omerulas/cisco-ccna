@@ -1,0 +1,210 @@
+en
+conf t
+hostname Ankara
+!
+interface gi 0/1
+no sh
+ip address 10.6.1.1 255.255.255.0
+desc To Mamak
+exit
+!
+int gi 0/2
+no sh
+ip address 10.6.2.1 255.255.255.0
+desk to Cankaya
+exit
+int gi 0/3/0
+no sh
+ip address 1.1.1.6 255.255.255.0
+desc To MPLS
+exit
+! RIP cagrisi
+route rip
+ver 2
+no auto-summary
+net 1.1.1.0
+net 10.6.1.0
+net 10.6.2.0
+pass gi 0/1
+pass gi 0/2
+! SSH komutlari
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+line vty 0 4
+login local
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************** Kirsehir *******************
+en
+conf t
+hostname Kirsehir
+!
+interface gi 0/1
+no sh
+ip address 10.40.1.1 255.255.255.0
+desc To Mucur
+exit
+!
+int gi 0/2
+no sh
+ip address 10.40.2.1 255.255.255.0
+desk to Kaman
+exit
+int gi 0/3/0
+no sh
+ip address 1.1.1.40 255.255.255.0
+desc To MPLS
+exit
+! RIP cagrisi
+route rip
+ver 2
+no auto-summary
+net 1.1.1.0
+net 10.40.1.0
+net 10.40.2.0
+pass gi 0/1
+pass gi 0/2
+! SSH komutlari
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+line vty 0 4
+login local
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+**************** Kayseri *********************
+en
+conf t
+hostname Kayseri
+!
+interface gi 0/1
+no sh
+ip address 10.38.1.1 255.255.255.0
+desc To Incesu
+exit
+!
+int gi 0/2
+no sh
+ip address 10.38.2.1 255.255.255.0
+desk to Develi
+exit
+int gi 0/3/0
+no sh
+ip address 1.1.1.38 255.255.255.0
+desc To MPLS
+exit
+! RIP cagrisi
+route rip
+ver 2
+no auto-summary
+net 1.1.1.0
+net 10.38.1.0
+net 10.38.2.0
+pass gi 0/1
+pass gi 0/2
+! SSH komutlari
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+line vty 0 4
+login local
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+**************** Igdir *********************
+en
+conf t
+hostname Kayseri
+!
+interface gi 0/1
+no sh
+ip address 10.76.1.1 255.255.255.0
+desc To Incesu
+exit
+!
+int gi 0/2
+no sh
+ip address 10.76.2.1 255.255.255.0
+desk to Develi
+exit
+int gi 0/3/0
+no sh
+ip address 1.1.1.76 255.255.255.0
+desc To MPLS
+exit
+! RIP cagrisi
+route rip
+ver 2
+no auto-summary
+net 1.1.1.0
+net 10.76.1.0
+net 10.76.2.0
+pass gi 0/1
+pass gi 0/2
+! SSH komutlari
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+yes
+1024
+username omer pass cisco
+line vty 0 4
+login local
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+**********************************************
+Ankara(config)#router rip
+Ankara(config-router)#default-information originate 
+
+! Dunayayi tanitmak
+ip route 0.0.0.0 0.0.0.0 8.8.8.1
+
+Ankara(config)#router rip
+Ankara(config-router)#default-information originate 
+Ankara(config-router)#ip route 0.0.0.0 0.0.0.0 8.8.8.1
+
+! Baslatmak icin
+Router# debug ip rip
+! Durdurmak icin
+Router# no debug ip rip
+
+! Sifreli iletisim kurulur
+Router(config)# key chain omer
+Router(config)# key 1
+Router(config)# key-string Sifre
+
+Router# int gi 0/3/0
+Router# ip rip authentication key-omer
+Router# ip rip authentication mode md5

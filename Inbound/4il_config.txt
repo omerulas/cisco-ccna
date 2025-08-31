@@ -1,0 +1,166 @@
+en
+conf t
+hostname 
+int gi 0/3/0
+no sh
+ip add 1.1.1.6 255.255.255.0
+desc To Mpls
+exit
+int gi 0/1 
+no sh
+ip add 10.6.1.1 255.255.255.0
+desc To Sincan
+exit
+int gi 0/2 
+no sh
+ip add 10.6.2.1 255.255.255.0
+desc To Cankaya
+exit
+! simdide diger illeri tanıtalım 
+ip route 10.76.1.0 255.255.255.0 1.1.1.76
+ip route 10.76.2.0 255.255.255.0 1.1.1.76
+ip route 10.38.1.0 255.255.255.0 1.1.1.38
+ip route 10.38.2.0 255.255.255.0 1.1.1.38
+ip route 10.40.1.0 255.255.255.0 1.1.1.40
+ip route 10.40.2.0 255.255.255.0 1.1.1.40
+enab sec cisco
+ip domain-name cisco
+service password-encryption 
+crypto key generate rsa
+1024
+username mustafa pass cisco
+line vty 0 4 
+login local
+transport input all
+exit
+ip ssh version 2 
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+
+******************************************************
+en
+conf t
+hostname Kirsehir
+int gi 0/3/0
+no sh
+ip add 1.1.1.40 255.255.255.0
+desc To Mpls
+exit
+int gi 0/1 
+no sh
+ip add 10.40.1.1 255.255.255.0
+desc To Kaman
+exit
+int gi 0/2 
+no sh
+ip add 10.40.2.1 255.255.255.0
+desc To Mucur
+exit
+! simdide diger illeri tanıtalım 
+ip route 10.76.1.0 255.255.255.0 1.1.1.76
+ip route 10.76.2.0 255.255.255.0 1.1.1.76
+ip route 10.6.1.0 255.255.255.0 1.1.1.6
+ip route 10.6.2.0 255.255.255.0 1.1.1.6
+ip route 10.40.1.0 255.255.255.0 1.1.1.40
+ip route 10.40.2.0 255.255.255.0 1.1.1.40
+enab sec cisco
+ip domain-name cisco
+service password-encryption 
+crypto key generate rsa
+1024
+username mustafa pass cisco
+line vty 0 4 
+login local
+transport input all
+exit
+ip ssh version 2 
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+
+*******************************************************
+en
+conf t
+hostname Kayseri
+int gi 0/3/0
+no sh
+ip add 1.1.1.38 255.255.255.0
+desc To Mpls
+exit
+int gi 0/1 
+no sh
+ip add 10.38.1.1 255.255.255.0
+desc To incesu
+exit
+int gi 0/2 
+no sh
+ip add 10.38.2.1 255.255.255.0
+desc To Develi
+exit
+! simdide diger illeri tanıtalım 
+ip route 10.6.1.0 255.255.255.0 1.1.1.6
+ip route 10.6.2.0 255.255.255.0 1.1.1.6
+ip route 10.40.1.0 255.255.255.0 1.1.1.40
+ip route 10.40.2.0 255.255.255.0 1.1.1.40
+ip route 10.76.1.0 255.255.255.0 1.1.1.76
+ip route 10.76.2.0 255.255.255.0 1.1.1.76
+enab sec cisco
+ip domain-name cisco
+service password-encryption 
+crypto key generate rsa
+1024
+username mustafa pass cisco
+line vty 0 4 
+login local
+transport input all
+exit
+ip ssh version 2 
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***********************************************************
+en
+conf t
+hostname Igdir
+int gi 0/3/0
+no sh
+ip add 1.1.1.76 255.255.255.0
+desc To Mpls
+exit
+int gi 0/1 
+no sh
+ip add 10.76.1.1 255.255.255.0
+desc To Aralik
+exit
+int gi 0/2 
+no sh
+ip add 10.76.2.1 255.255.255.0
+desc To Tuzluca
+exit
+! simdide diger illeri tanıtalım 
+ip route 10.6.1.0 255.255.255.0 1.1.1.6
+ip route 10.6.2.0 255.255.255.0 1.1.1.6
+ip route 10.38.1.0 255.255.255.0 1.1.1.38
+ip route 10.38.2.0 255.255.255.0 1.1.1.38
+ip route 10.40.1.0 255.255.255.0 1.1.1.40
+ip route 10.40.2.0 255.255.255.0 1.1.1.40
+enab sec cisco
+ip domain-name cisco
+service password-encryption 
+crypto key generate rsa
+1024
+username mustafa pass cisco
+line vty 0 4 
+login local
+transport input all
+exit
+ip ssh version 2 
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+*********************************************
