@@ -186,3 +186,83 @@ ip ssh time-out 30
 do wr mem
 !
 
+! Debug modu
+debug ip ospf events
+
+! Authentication - Dis bacagi sifreleme
+en
+conf t
+int gi 0/3/0
+ip ospf authentication
+ip ospf authentication-key elma
+exit
+do wr mem
+!
+
+Internal Routers: Direct bir areaya dahil olan routerlardır.
+
+Backbone Router: En az 1 bacagi area 0 olanlara denir.
+
+ABR Router: Birden fazla areaya sınırı olan routerlardır. (Area Border Routers)
+
+ASB Router: (Autonom System Border Routers) Farklı protokolleri kullanan routerlardır
+
+************* OSPF Multi Area ************
+en
+conf t
+hostname Router-1
+int gi 0/1
+ip add 192.168.1.1 255.255.255.0
+no sh
+exit
+int gi 0/0
+no sh
+ip add 1.1.1.2 255.255.255.252
+exit
+router ospf 100
+router-id 1.1.1.1
+net 1.1.1.0 0.0.0.3 area 0
+net 192.168.1.0 0.0.0.255 area 1
+pass gi 0/1
+exit
+
+en
+conf t
+hostname Router-2
+int gi 0/1
+ip add 192.168.0.1 255.255.255.0
+no sh
+exit
+int gi 0/0
+no sh
+ip add 1.1.1.1 255.255.255.252
+exit
+int gi 0/2
+no sh
+ip add 1.1.1.5 255.255.255.252
+exit
+router ospf 100
+router-id 1.1.1.2
+net 1.1.1.0 0.0.0.3 area 0
+net 1.1.1.4 0.0.0.3 area 2
+net 192.168.0.0 0.0.0.255 area 0
+pass gi 0/1
+exit
+
+en
+conf t
+hostname Router-3
+int gi 0/2
+ip add 1.1.1.6 255.255.255.252
+no sh
+exit
+int gi 0/0
+ip add 192.168.2.1 255.255.255.0
+no sh
+exit
+router ospf 100
+router-id 1.1.1.3
+net 1.1.1.4 0.0.0.3 area 0
+net 192.168.2.0 0.0.0.255 area 2
+pass gi 0/2
+exit

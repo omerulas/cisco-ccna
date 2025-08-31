@@ -1,0 +1,131 @@
+Path Vector Protocols
+
+Daha çok farklı otonom sistemler (AS) arasındaki yönlendirme için kullanılır.
+
+Her rotanın hangi otonom sistemlerden geçtiğini bilir.
+
+Örnek:
+
+BGP (Border Gateway Protocol) → İnternette kullanılan routing protokolü.
+
+! Kirsehir icin
+router bgp 40
+net 1.1.1.0 mask 255.255.255.0
+net 10.40.2.0 mask 255.255.255.0
+net 10.40.1.0 mask 255.255.255.0
+! Kimle konusacaksa o bolge yazilmali
+nei 1.1.1.6 remote-as 6
+nei 1.1.1.48 remote-as 38
+nei 1.1.1.76 remote-as 76
+
+en
+conf t
+hostname Ankara
+int gi 0/3/0
+no sh
+ip add 1.1.1.6 255.255.255.0
+exit
+int gi 0/1
+no sh
+ip add 10.6.1.1 255.255.255.0
+exit
+int gi 0/2
+no sh
+ip add 10.6.2.1 255.255.255.0
+exit
+!
+router bgp 6
+net 1.1.1.0 mask 255.255.255.0
+net 10.6.1.0 mask 255.255.255.0
+net 10.6.2.0 mask 255.255.255.0
+!
+nei 1.1.1.40 remote-as 40
+nei 1.1.1.38 remote-as 38
+nei 1.1.1.76 remote-as 76
+exit
+do wr mem
+!
+**********************************
+en
+conf t
+hostname Kirsehir
+int gi 0/3/0
+no sh
+ip add 1.1.1.40 255.255.255.0
+exit
+int gi 0/1
+no sh
+ip add 10.40.1.1 255.255.255.0
+exit
+int gi 0/2
+no sh
+ip add 10.40.2.1 255.255.255.0
+exit
+!
+router bgp 40
+net 1.1.1.0 mask 255.255.255.0
+net 10.40.1.0 mask 255.255.255.0
+net 10.40.2.0 mask 255.255.255.0
+!
+nei 1.1.1.6 remote-as 6
+nei 1.1.1.38 remote-as 38
+nei 1.1.1.76 remote-as 76
+exit
+do wr mem
+!
+**********************************
+en
+conf t
+hostname Kayseri
+int gi 0/3/0
+no sh
+ip add 1.1.1.38 255.255.255.0
+exit
+int gi 0/1
+no sh
+ip add 10.38.1.1 255.255.255.0
+exit
+int gi 0/2
+no sh
+ip add 10.38.2.1 255.255.255.0
+exit
+!
+router bgp 38
+net 1.1.1.0 mask 255.255.255.0
+net 10.38.1.0 mask 255.255.255.0
+net 10.38.2.0 mask 255.255.255.0
+!
+nei 1.1.1.6 remote-as 6
+nei 1.1.1.40 remote-as 40
+nei 1.1.1.76 remote-as 76
+exit
+do wr mem
+!
+**********************************
+en
+conf t
+hostname Igdir
+int gi 0/3/0
+no sh
+ip add 1.1.1.76 255.255.255.0
+exit
+int gi 0/1
+no sh
+ip add 10.76.1.1 255.255.255.0
+exit
+int gi 0/2
+no sh
+ip add 10.76.1.1 255.255.255.0
+exit
+!
+router bgp 76
+net 1.1.1.0 mask 255.255.255.0
+net 10.76.1.0 mask 255.255.255.0
+net 10.76.2.0 mask 255.255.255.0
+!
+nei 1.1.1.6 remote-as 6
+nei 1.1.1.40 remote-as 40
+nei 1.1.1.38 remote-as 38
+exit
+do wr mem
+!
