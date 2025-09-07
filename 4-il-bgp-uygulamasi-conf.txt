@@ -129,3 +129,8 @@ nei 1.1.1.38 remote-as 38
 exit
 do wr mem
 !
+
+
+! Debugging
+show ip bgp summary
+show ip bgp neighbors
