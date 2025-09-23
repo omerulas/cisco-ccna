@@ -1,0 +1,154 @@
+en
+conf t
+hostname R1
+int gi 0/1
+no sh
+ip address 192.168.1.1 255.255.255.0
+desc to Lan1
+exit
+int gi 0/0
+no sh
+ip address 192.168.2.1 255.255.255.0
+desc to Lan2
+exit
+int gi 0/2
+no sh
+ip address 1.1.1.2 255.255.255.252
+desc to R2
+exit
+! RIP Conf
+route rip
+ver 2
+no auto-summary
+net 1.1.1.0
+net 192.168.1.0
+net 192.168.2.0
+pass gi 0/1
+pass gi 0/2
+exit
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kac kisi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+**********************************************
+en
+conf t
+hostname R3
+int gi 0/1
+no sh
+ip address 192.168.3.1 255.255.255.0
+desc to Lan3
+exit
+int gi 0/2
+no sh
+ip address 192.168.4.1 255.255.255.0
+desc to Lan4
+exit
+int gi 0/0
+no sh
+ip address 2.2.2.2 255.255.255.252
+desc to R2
+exit
+! OSPF Conf
+router ospf 100
+net 2.2.2.0 0.0.0.3 area 0
+net 192.168.3.0 0.0.0.255 area 0
+net 192.168.4.0 0.0.0.255 area 0
+pass gi 0/1
+pass gi 0/2
+exit
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kac kisi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+***************************************
+en
+conf t
+hostname R2
+int gi 0/2
+no sh
+ip address 1.1.1.1 255.255.255.252
+desc to R1
+exit
+int gi 0/0
+no sh
+ip address 2.2.2.1 255.255.255.252
+desc to R3
+exit
+! Redistribute redistribute ?
+router rip
+version 2
+net 1.1.1.0
+redistribute ospf 100 metric 2
+router ospf 100
+net 2.2.2.0 0.0.0.3 area 0
+redistribute rip subnets
+exit
+enab sec cisco
+ip domain-name cisco
+service password-encryption
+crypto key generate rsa
+1024
+username omer pass cisco
+! Kac kisi aynı anda bağlanabilir
+line vty 0 4
+login local
+! transport input ssh
+transport input all
+exit
+ip ssh version 2
+ip ssh authentication-retries 4
+ip ssh time-out 30
+do wr mem
+!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,159 @@
+--- Merkez Switch ---
+
+1. Ayricalikli moda gec
+
+Switch> enable
+Switch# configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#
+
+2. Vlanleri olustur
+
+Switch(config)# vlan 10
+Switch(config-vlan)# name Yonetim
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 11
+Switch(config-vlan)# name Personel
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 12
+Switch(config-vlan)# name Voice
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 19
+Switch(config-vlan)# name MGMT
+Switch(config-vlan)# exit
+
+3. 1/0/1-3 arasini trunk et
+
+Switch(config)# interface range GigabitEthernet1/0/1 - 3
+Switch(config-if-range)# switchport mode trunk
+-> gerek yok --- Switch(config-if-range)# switchport trunk encapsulation dot1q  // (Eğer switch tarafından istenirse, modern switch'lerde genellikle otomatiktir)
+Switch(config-if-range)# switchport trunk allowed vlan 10,11,12,19 // Güvenlik için sadece ilgili VLAN'lara izin verilir
+Switch(config-if-range)# end
+Switch# write memory // Yapılandırmayı kaydet
+
+4. Vlanlere girip default gatewat islemi
+
+Switch# configure terminal
+Switch(config)# ip routing // Yönlendirmeyi aktif et
+
+Switch(config)# interface Vlan10
+Switch(config-if)# ip address 192.168.10.1 255.255.255.0
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+
+Switch(config)# interface Vlan11
+Switch(config-if)# ip address 192.168.11.1 255.255.255.0
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+
+Switch(config)# interface Vlan12
+Switch(config-if)# ip address 192.168.12.1 255.255.255.0
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+
+Switch(config)# interface Vlan19
+Switch(config-if)# ip address 192.168.19.1 255.255.255.0
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+
+Switch(config)# end
+Switch# write memory // Yapılandırmayı kaydet
+
+5. Kat Switchlerine gecip vlanleri tanit
+
+Switch> enable
+Switch# configure terminal
+Switch(config)# vlan 10
+Switch(config-vlan)# name Yonetim
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 11
+Switch(config-vlan)# name Personel
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 12
+Switch(config-vlan)# name Voice
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 19
+Switch(config-vlan)# name MGMT
+Switch(config-vlan)# exit
+
+6. Kat bacaklarini Merkez Switche trunk bagla
+
+Switch(config)# interface GigabitEthernet0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# switchport trunk encapsulation dot1q
+Switch(config-if)# switchport trunk allowed vlan 10,11,12,19
+Switch(config-if)# exit
+
+7. Erisim (Access) Portlarini vlanlara bagla
+
+Switch(config)# interface range FastEthernet0/1 - 10
+Switch(config-if-range)# switchport mode access
+Switch(config-if-range)# switchport access vlan 10
+Switch(config-if-range)# spanning-tree portfast // Portun hızlı açılması için önerilir
+Switch(config-if-range)# exit
+Switch(config)# interface range FastEthernet0/11 - 20
+Switch(config-if-range)# switchport mode access
+Switch(config-if-range)# switchport access vlan 11
+Switch(config-if-range)# spanning-tree portfast
+Switch(config-if-range)# exit
+Switch(config)# interface FastEthernet0/24 // IP Telefonun bağlı olduğu port
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 11      // Bilgisayar için data VLAN'ı
+Switch(config-if)# switchport voice vlan 12       // IP Telefon için voice VLAN'ı
+Switch(config-if)# spanning-tree portfast
+Switch(config-if)# exit
+
+8. Kat Switchlerindeki MGMT (Yonetim) portunu aktif et
+
+Switch(config)# interface Vlan19
+Switch(config-if)# ip address 192.168.19.X 255.255.255.0 // Her switch'e farklı bir IP verin, örn: 19.2, 19.3, 19.4
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+
+// Switch'in merkez switch üzerinden diğer ağlara erişebilmesi için default gateway tanımlanır.
+Switch(config)# ip default-gateway 192.168.19.1
+Switch(config)# end
+Switch# write memory // Yapılandırmayı kaydet
+
+9. VTP Server Yapilandirmasi
+
+Merkez# configure terminal
+Merkez(config)# vtp domain AGIMIZ // Kendinize özgü bir alan adı belirleyin. Tüm switchlerde aynı olmalı.
+Changing VTP domain name from NULL to AGIMIZ
+Merkez(config)# vtp password gizlisifre // Güvenlik için bir şifre belirleyin. Tüm switchlerde aynı olmalı.
+Setting device VTP password to gizlisifre
+Merkez(config)# vtp mode server // Bu switch'in modunu sunucu olarak ayarla
+Device mode already VTP SERVER.
+
+
+--- VTP Server Olusturma ---
+en
+conf t
+vtp domain kat_agi
+vtp pass cisco
+vtp mode server
+!
+
+--- Voice Vlanını El ile Tanimlama ---
+int fa 0/24
+sw mod acc
+sw acc vlan 10
+sw voice vlan 12
+exit
+
+--- L3 Switchin bacagini router gibi Ip atama ---
+interface gigabitEthernet 1/0/4
+no switchport
+ip address 1.1.1.2 255.255.255.252
+
+
+01:33:46
+
+
+

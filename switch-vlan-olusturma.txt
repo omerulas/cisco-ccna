@@ -1,0 +1,179 @@
+Vlan 10 Ogrenciler
+1-10 Ports
+192.168.10.0/24
+
+Vlan 20 Ogretmenler
+11-20 Ports
+192.168.20.0/24
+
+! Swtich Conf
+en
+conf t
+hostname SW1
+! Vlan olusturma
+vlan 10
+name ogrenciler
+exit
+vlan 20
+name ogretmenler
+exit
+! Interface icine gir
+! int fa 0/1
+! sw mod acc
+! sw acc vlan 10
+! desc ogrenci_portu
+! exit
+! fa 2 ile 10 arasini vlan 10 uyesi yapmak
+int range fastEthernet 0/1-10
+sw mod acc
+sw acc vlan 10
+desc ogrenci_portu
+exit
+int range fa 0/11-20
+sw mod acc
+sw acc vlan 20
+desc ogretmenler_portu
+exit
+! L3 Switchler routing yapar
+ip routing
+en
+conf t
+int vlan 10
+no sh
+ip address 192.168.10.1 255.255.255.0
+exit
+int vlan 20
+no sh
+ip address 192.168.20.1 255.255.255.0
+exit
+int vlan 30
+no sh
+ip address 192.168.30.1 255.255.255.0
+exit
+int vlan 50
+no sh
+ip address 192.168.50.1 255.255.255.0
+exit
+int vlan 100
+no sh
+ip address 192.168.100.1 255.255.255.0
+exit
+!
+
+02:09:00
+
+! L2 Switch Trunk
+int gi 0/1
+sw mod trunk
+
+! L3 Switch Trunk
+sw trunk enc do
+sw mod trunk
+
+! Guvenlik icin
+switchport no neo
+
+! SW3
+en
+conf t
+hostname SW3
+int gi 0/2
+no sh
+sw trunk enc do
+sw mod trunk
+desc to SW2
+vlan 50
+name Muhasebe
+exit
+vlan 100
+name Yoneticiler
+int range fa 0/1-5, fa 0/15-20
+sw mod acc
+exit
+int range fa 0/1-5
+sw mode acc
+sw acc vlan 100
+exit
+int range fa 0/15-20
+sw mod acc
+sw acc vlan 50
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
