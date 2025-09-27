@@ -99,9 +99,39 @@ sw mod acc
 sw acc vlan 50
 exit
 
-
-
-
+--- Kat 1 Switch ---
+en
+conf t
+int gi 0/1
+no sh
+sw trunk enc do
+sw mod trunk
+exit
+vtp mode client
+vtp pass cisco
+int ran fa 0/1-10
+sw mod acc
+sw acc vlan 10
+desc Yonetim Portu
+exit
+int ran fa 0/11-20
+sw mod acc
+sw acc vlan 11
+desc Personel
+exit
+int fa 0/24
+desc Phone_and_Yonetim
+sw mod acc
+sw acc vlan 12
+sw acc vlan 10
+exit
+int vlan 19
+no sh
+ip address 192.168.19.2 255.255.255.0
+exit
+ip default-g 192.168.19.1
+do wr mem
+--- Kat-2 ---
 
 
 

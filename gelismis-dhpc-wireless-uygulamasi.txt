@@ -1,0 +1,168 @@
+1. Omurga switchi configure etmek
+
+en
+conf t
+host OMG
+vlan 10
+exit
+vlan 11
+exit
+vlan 12
+exit
+vlan 19
+!
+vtp mode server
+vtp domain omer
+vtp pass cisco
+!
+int range gi 1/0/1-5
+sw mode tr
+exit
+! Native vlan yapma
+int gi 1/0/4
+sw tr native vlan 19
+exit
+int vlan 19
+no sh
+ip add 192.168.19.2 255.255.255.0
+exit
+ip default-g 192.168.19.1
+! --- Telnet SSH ---
+!
+
+2. Kat Switchlerini configure et
+
+en
+conf t
+host Kat-1
+int gi 0/1
+sw mod tr
+sw tr enc dot
+exit
+int ran fa 0/1-10
+sw mod acc
+sw acc vlan 10
+desc Yonetim Portu
+int ran fa0/11-20
+sw mod acc
+sw acc vlan 11
+desc Personel Portu
+exit
+! LAP-PT icin
+int gi 0/2
+sw mode tr
+sw tr enc do
+sw trunk native vlan 19
+exit
+int vlan 19
+ip address 192.168.19.3 255.255.255.0
+exit
+ip default-g 192.168.19.1
+exit
+! --- Telnet SSH ---
+
+en
+conf t
+host Kat-2
+int gi 0/1
+sw mod tr
+sw tr enc dot
+exit
+int ran fa 0/1-10
+sw mod acc
+sw acc vlan 10
+desc Yonetim Portu
+int ran fa0/11-20
+sw mod acc
+sw acc vlan 11
+desc Personel Portu
+exit
+! LAP-PT icin
+int gi 0/2
+sw mode tr
+sw tr enc do
+sw trunk native vlan 19
+exit
+int vlan 19
+ip address 192.168.19.4 255.255.255.0
+exit
+ip default-g 192.168.19.1
+exit
+! --- Telnet SSH ---
+
+en
+conf t
+host Kat-3
+int gi 0/1
+sw mod tr
+sw tr enc dot
+exit
+int ran fa 0/1-10
+sw mod acc
+sw acc vlan 10
+desc Yonetim Portu
+int ran fa0/11-20
+sw mod acc
+sw acc vlan 11
+desc Personel Portu
+exit
+! LAP-PT icin
+int gi 0/2
+sw mode tr
+sw tr enc do
+sw trunk native vlan 19
+exit
+int vlan 19
+ip address 192.168.19.5 255.255.255.0
+exit
+ip default-g 192.168.19.1
+exit
+! --- Telnet SSH ---
+
+1:10:30 kaldı
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
