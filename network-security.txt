@@ -1,0 +1,83 @@
+en
+conf t
+hostname R1
+int gi 0/2
+no sh
+ip address 192.168.2.1 255.255.255.0
+desc to Server
+exit
+int gi 0/1
+no sh
+ip add 192.168.1.1 255.255.255.0
+desc to LAN
+ip helper-add 192.168.2.2
+exit
+
+! --- SW1 ---
+en
+conf t
+hostname SW1
+! Butun yollari kapatir IP alamaz
+ip dhcp snooping
+ip dhcp snooping vlan 1
+interface gigabitEthernet 0/1
+interface range fastEthernet 0/1-24
+ip dhcp snooping trust
+ip dhcp snooping limit rate 20
+sh ip dhcp snooping
+debug ip dhcp snooping event
+debug ip dhcp snooping packet
+! Arp zehirlenmesini onler
+ip arp inspection vlan 1
+interface gigabitEthernet 0/1
+ip arp inspection trust
+do sh mac address-table
+int range fastEthernet 0/1-24, gi0/2
+switchport mode access
+switchport port-security max 2
+switchport port-security mac-address sticky 
+
+SW1(config-if-range)#switchport port-security violation ?
+  protect   Security violation protect mode
+  restrict  Security violation restrict mode
+  shutdown  Security violation shutdown mode
+
+interface range fastEthernet 0/1-10
+switchport port-security violation restrict
+exit
+interface range fastEthernet 0/11-24, gi 0/2
+switchport port-security violation shutdown
+show port-security
+
+SW1#show port-security 
+Secure Port MaxSecureAddr CurrentAddr SecurityViolation Security Action
+               (Count)       (Count)        (Count)
+--------------------------------------------------------------------
+        Fa0/1        1          0                 0         Restrict
+        Fa0/2        1          0                 0         Restrict
+        Fa0/3        1          0                 0         Restrict
+        Fa0/4        1          0                 0         Restrict
+        Fa0/5        1          0                 0         Restrict
+        Fa0/6        1          0                 0         Restrict
+        Fa0/7        1          0                 0         Restrict
+        Fa0/8        1          0                 0         Restrict
+        Fa0/9        1          0                 0         Restrict
+       Fa0/10        1          0                 0         Restrict
+       Fa0/11        1          0                 0         Shutdown
+       Fa0/12        1          0                 0         Shutdown
+       Fa0/13        1          0                 0         Shutdown
+       Fa0/14        1          0                 0         Shutdown
+       Fa0/15        1          0                 0         Shutdown
+       Fa0/16        1          0                 0         Shutdown
+       Fa0/17        1          0                 0         Shutdown
+       Fa0/18        1          0                 0         Shutdown
+       Fa0/19        1          0                 0         Shutdown
+       Fa0/20        1          0                 0         Shutdown
+       Fa0/21        1          0                 0         Shutdown
+       Fa0/22        1          0                 0         Shutdown
+       Fa0/23        1          0                 0         Shutdown
+       Fa0/24        1          0                 0         Shutdown
+       Gig0/2        1          1                 0         Shutdown
+----------------------------------------------------------------------
+
+
